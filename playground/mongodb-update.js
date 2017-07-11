@@ -6,20 +6,30 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
   }
   console.log('Connected to MongoDB server');
 
-  db.collection('Todos').deleteMany({text: 'Eat lunch'}).then((result) => {
+  db.collection('Todos').findOneAndUpdate({
+    _id: new ObjectID("5965231857afe625644fa6bc")
+  }, {
+    $set: {
+      completed: true
+    }
+  }, {
+    returnOriginal: false
+  }).then((result) => {
     console.log(result);
   }, (err) => {
     console.log('Unable to delete todos', err);
   });
 
-  db.collection('Todos').deleteOne({text: 'Eat lunch'}).then((result) => {
+  db.collection('Users').findOneAndUpdate({
+    _id: new ObjectID("596524a3f5351d21acf78a81")
+  }, {
+    $inc: {
+      age: 10
+    }
+  }, {
+    returnOriginal: false
+  }).then((result) => {
     console.log(result);
-  }, (err) => {
-    console.log('Unable to delete todos', err);
-  });
-
-  db.collection('Todos').findOneAndDelete({_id: new ObjectID('32r23r32132e')}).then((result) => {
-    console.log(JSON.stringify(results, undefined, 2));
   }, (err) => {
     console.log('Unable to delete todos', err);
   });
